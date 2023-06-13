@@ -4,9 +4,13 @@
   "private": true,
   "homepage": "https://CaXaR777.github.io/goit-react-hw-02-phonebook/",
   "dependencies": {
+    "@emotion/react": "^11.11.1",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "clsx": "^1.2.1",
+    "nanoid": "^4.0.2",
+    "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
@@ -36,5 +40,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^2.1.3",
+    "styled-components": "^5.3.10"
   }
 }
