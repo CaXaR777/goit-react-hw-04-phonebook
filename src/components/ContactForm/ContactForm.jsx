@@ -15,6 +15,8 @@ export class ContactForm extends Component {
     this.props.saveContact({ ...this.state, id: nanoid() });
     this.setState({ name: '', number: '' });
   };
+  
+
   handleChange = ({ target }) => this.setState({ [target.name]: target.value });
 
   render() {
@@ -23,6 +25,7 @@ export class ContactForm extends Component {
         <div>
           <s.Label htmlFor="userName">Name</s.Label>
           <input
+          value={this.state.name}
             onChange={this.handleChange}
             id="userName"
             type="text"
@@ -35,6 +38,7 @@ export class ContactForm extends Component {
         <div>
           <s.Label htmlFor="userNumber">Number</s.Label>
           <input
+          value={this.state.number}
             onChange={this.handleChange}
             id="userNumber"
             type="tel"
