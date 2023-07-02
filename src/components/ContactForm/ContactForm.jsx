@@ -1,32 +1,49 @@
 import * as s from './ContactForm.styled';
-import { nanoid } from 'nanoid';
-import { Component } from 'react';
+// import { nanoid } from 'nanoid';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
+export const ContactForm = ({saveContact}) => {
+  // state = {
+  //   name: '',
+  //   number: '',
+  // };
+  
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
  
 
-  submitForm = e => {
+  const submitForm = e => {
     e.preventDefault();
-    this.props.saveContact({ ...this.state, id: nanoid() });
-    this.setState({ name: '', number: '' });
+    // this.props.saveContact({ ...this.state, id: nanoid() });
+    // this.setState({ name: '', number: '' });
+    const newContact = { name, number };
+    const isSuccess = saveContact(newContact);
+    
+    if (isSuccess) 
+    setName('');
+    setNumber('');
   };
   
 
-  handleChange = ({ target }) => this.setState({ [target.name]: target.value });
+  // handleChange = ({ target }) => this.setState({ [target.name]: target.value });
+  const handleNameChange = event => {
+    setName(event.target.value);
+  };
 
-  render() {
+  const handleNumberChange = event => {
+    setNumber(event.target.value);
+  };
+  
+
+  
     return (
-      <s.Form onSubmit={this.submitForm}>
+      <s.Form onSubmit={submitForm}>
         <div>
           <s.Label htmlFor="userName">Name</s.Label>
           <input
-          value={this.state.name}
-            onChange={this.handleChange}
+          value={name}
+            onChange={handleNameChange}
             id="userName"
             type="text"
             name="name"
@@ -38,8 +55,8 @@ export class ContactForm extends Component {
         <div>
           <s.Label htmlFor="userNumber">Number</s.Label>
           <input
-          value={this.state.number}
-            onChange={this.handleChange}
+          value={number}
+            onChange={handleNumberChange}
             id="userNumber"
             type="tel"
             name="number"
@@ -52,7 +69,9 @@ export class ContactForm extends Component {
       </s.Form>
     );
   }
-}
+
 ContactForm.propTypes = {
   saveContact: PropTypes.func.isRequired,
 };
+
+// export default ContactForm;
