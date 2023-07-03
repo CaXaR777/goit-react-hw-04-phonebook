@@ -2,13 +2,13 @@ import React from 'react';
 import * as S from './Filter.styled';
 import PropTypes from 'prop-types';
 
-export const Filter = ({ OnChange }) => (
+export const Filter = ({ OnChange, value }) => (
   <div>
     <S.Label>
       Filter
       <input
         type="name"
-        // value={value}
+        value={value}
         onChange={OnChange}
       />
     </S.Label>

@@ -14,10 +14,11 @@ const App = () => {
   //   ],
   //   filter: '',
   // };
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(localStorage.getItem('contacts')) || []
-  );
-  const [filter, setFilter] = useState('');
+
+    const [contacts, setContacts] = useState(
+      () => JSON.parse(localStorage.getItem('contacts')) || []
+    );
+    const [filter, setFilter] = useState('');
 
   // componentDidMount() {
   //   // this.setState({ contacts: JSON.parse(localStorage.getItem('contacts')) });
@@ -26,7 +27,7 @@ const App = () => {
   //   this.setState({ contacts: storedContacts });
   // }
   // }
-   useEffect(() => {
+  useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
@@ -53,9 +54,9 @@ const App = () => {
   
   // };
 
-    const saveContact = newContact => {
+  const saveContact = newContact => {
     const isContactExists = contacts.some(
-      contact => contact.name.toLowerCase() === newContact.name.toLowerCase(),
+      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
     );
     if (isContactExists) {
       alert(`${newContact.name} is already in contacts.`);
@@ -73,24 +74,30 @@ const App = () => {
   //   setFilter(value);
   // };
 
-  const filterValue = value => {
-    setFilter(value);
+  const filterValue = (evt)=> {
+    // const filteredValue =  String(value).toLowerCase();
+    // setFilter(filteredValue);
+    // setFilter(value);
+    // console.log(value)
+    setFilter(evt.target.value.trim());
   };
 
+ 
   // const deleteContact = Id => {
   //   this.setState(prevState => ({
   //     contacts: prevState.contacts.filter(contact => contact.id !== Id),
   //   }));
   // };
 
-    const deleteContact = Id => {
-    const newContacts = contacts.filter(contact => contact.id !== Id);
+  const deleteContact = id => {
+    const newContacts = contacts.filter(contact => contact.id !== id);
     setContacts(newContacts);
-    }
+  }
   
+  // const filteredContacts = contacts.filter(contact =>
+  //   contact.name.toLowerCase().includes(filter.toLowerCase()),
+  // );
 
-
-  
     // const contacts = this.state.contacts;
 
 
@@ -102,18 +109,20 @@ const App = () => {
         <h2>Contacts</h2>
         <div>All contacts: {contacts.length}</div>
         <Filter value={filter} OnChange={filterValue} />
-        {JSON.parse(localStorage.getItem('contacts')) && (<ContactList
-          onDeleteContact={deleteContact}
-          data={
-            filter
-              ? contacts.filter(contact =>
-                  contact.name
-                    .toLowerCase()
-                    .includes(filter.toLowerCase())
-                )
-              : contacts
-          }
-        />)}
+        {contacts.length > 0 && (
+          <ContactList
+          // data={filteredContacts}
+            onDeleteContact={deleteContact}
+            data={
+              filter
+                ? contacts.filter(contact =>
+                    contact.name.toLowerCase().includes(String(filter).toLowerCase())
+                  )
+                : contacts
+            }
+          />
+        )}
+       
       </div>
     );
   }
